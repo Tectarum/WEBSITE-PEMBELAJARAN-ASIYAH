@@ -87,8 +87,6 @@
 
     <div class="login-container">
         <h2>Halaman Login</h2>
-        <input type="text" id="username" placeholder="Nama Pengguna" required>
-        <input type="password" id="password" placeholder="Password" required>
         <button onclick="login()">Login</button>
         <div class="loader" id="loader"></div> <!-- Loader -->
         <p class="error" id="error-message"></p>
@@ -96,9 +94,6 @@
 
     <script>
         function login() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorMessage = document.getElementById('error-message');
             const loader = document.getElementById('loader');
 
             // Tampilkan loader
@@ -106,13 +101,7 @@
 
             setTimeout(() => {
                 // Simulasi proses login dengan timeout
-                if (username === 'asiyah' && password === '1234') {
-                    window.location.href = 'HTML.html'; // Ganti dengan nama file halaman materi Anda
-                } else {
-                    // Jika login gagal, sembunyikan loader dan tampilkan pesan kesalahan
-                    loader.style.display = 'none';
-                    errorMessage.innerText = 'Username atau password salah.';
-                }
+                    window.location.href = 'HTML.html';
             }, 5500); // Waktu simulasi 1.5 detik
         }
     </script>
