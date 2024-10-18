@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Pembelajaran</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #material {
+            display: inline-block;
+            margin: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            text-align: left;
+        }
+        #quiz {
+            display: none;
+            margin-top: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        #question {
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        #answer {
+            padding: 10px;
+            font-size: 16px;
+            width: calc(100% - 24px);
+            margin-bottom: 10px;
+        }
+        #score {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Selamat Datang di Pembelajaran</h1>
+    <h2>Pilih Materi:</h2>
+    <button onclick="showMaterial('materi1')">Materi 1</button>
+    <button onclick="showMaterial('materi2')">Materi 2</button>
+    <button onclick="showMaterial('materi3')">Materi 3</button>
+    <button onclick="goToHome()">Kembali ke Home</button>
+
+    <div id="material"></div>
+    <div id="quiz">
+        <h2>Soal Setelah Materi</h2>
+        <p id="question"></p>
+        <input type="text" id="answer" placeholder="Jawaban Anda (a/b/c)">
+        <button onclick="checkAnswer()">Kirim Jawaban</button>
+        <p id="score"></p>
+    </div>
+
+    <footer>
+        © 2023
+    </footer>
+
+    <script>
+        const materials = {
+            materi1: `
+                <h3>Pengertian dan Pentingnya Memenuhi Janji</h3>
+                <p>Pengertian: Memenuhi janji berarti menepati komitmen atau pernyataan yang telah dibuat sebelumnya, baik secara lisan maupun tulisan. Ini mencakup semua jenis janji, dari yang sederhana hingga yang kompleks, seperti janji kepada teman, keluarga, atau dalam konteks profesional.</p>
+                <h4>Pentingnya Memenuhi Janji:</h4>
+                <ul>
+                    <li>Membangun Kepercayaan: Ketika seseorang menepati janjinya, kepercayaan orang lain terhadapnya meningkat.</li>
+                    <li>Menunjukkan Integritas: Memenuhi janji mencerminkan karakter seseorang.</li>
+                    <li>Memperkuat Hubungan Sosial: Janji yang ditepati membantu memperkuat ikatan antar individu.</li>
+                    <li>Reputasi yang Baik: Seseorang yang dikenal dapat memenuhi janji akan memiliki reputasi yang baik.</li>
+                    <li>Mendorong Disiplin Diri: Memenuhi janji berfungsi sebagai latihan disiplin.</li>
+                </ul>
+            `,
+            materi2: `
+                <h3>Cara Memenuhi Janji dengan Baik</h3>
+                <h4>Langkah-langkah untuk Memenuhi Janji:</h4>
+                <ul>
+                    <li>Buatlah Janji yang Realistis: Pastikan janji tersebut dapat dipenuhi.</li>
+                    <li>Catat Janji yang Telah Dibuat: Menyimpan catatan tentang janji membantu mengingat dan menepatinya.</li>
+                    <li>Komunikasikan Jika Ada Kendala: Penting untuk mengkomunikasikannya secepat mungkin.</li>
+                    <li>Usahakan untuk Menepati Waktu: Tindakan ini menunjukkan rasa hormat terhadap waktu orang lain.</li>
+                    <li>Tunjukkan Rasa Tanggung Jawab: Meminta maaf jika janji tidak dapat dipenuhi.</li>
+                </ul>
+            `,
+            materi3: `
+                <h3>Konsekuensi dari Tidak Memenuhi Janji</h3>
+                <h4>Dampak Negatif dari Tidak Memenuhi Janji:</h4>
+                <ul>
+                    <li>Kehilangan Kepercayaan: Kepercayaan dari orang lain akan hilang.</li>
+                    <li>Kerusakan Hubungan: Janji yang tidak ditepati dapat menyebabkan konflik.</li>
+                    <li>Reputasi Buruk: Seseorang yang sering tidak memenuhi janji akan dikenal sebagai individu yang tidak dapat diandalkan.</li>
+                    <li>Rasa Bersalah: Tidak memenuhi janji sering kali menimbulkan rasa bersalah.</li>
+                    <li>Menurunnya Rasa Percaya Diri: Ketidakmampuan untuk memenuhi janji dapat menurunkan rasa percaya diri.</li>
+                </ul>
+            `,
+        };
+
+        const questions = {
+            materi1: [
+                { question: "Apa yang dimaksud dengan memenuhi janji?", options: "a. Membuat janji baru<br>b. Menepati komitmen yang telah dibuat<br>c. Mengabaikan komitmen", answer: "b" },
+                { question: "Mengapa memenuhi janji penting dalam hubungan sosial?", options: "a. Untuk mendapatkan keuntungan pribadi<br>b. Untuk membangun kepercayaan<br>c. Agar tidak dianggap serius", answer: "b" },
+                { question: "Apa yang bisa terjadi jika seseorang tidak memenuhi janjinya?", options: "a. Hubungan menjadi lebih baik<br>b. Kepercayaan akan hilang<br>c. Tidak ada efek apapun", answer: "b" },
+                { question: "Apa yang dapat menunjukkan integritas seseorang?", options: "a. Sering mengubah janji<br>b. Memenuhi semua janji yang dibuat<br>c. Tidak pernah membuat janji", answer: "b" },
+                { question: "Apa dampak positif dari memenuhi janji terhadap diri sendiri?", options: "a. Mengurangi rasa percaya diri<br>b. Mendorong disiplin diri<br>c. Menghambat hubungan sosial", answer: "b" },
+            ],
+            materi2: [
+                { question: "Apa yang sebaiknya dilakukan saat membuat janji?", options: "a. Membuat janji yang tidak realistis<br>b. Membuat janji yang realistis<br>c. Mengabaikan konsekuensi", answer: "b" },
+                { question: "Mengapa penting mencatat janji?", options: "a. Agar tidak lupa<br>b. Agar bisa mengubahnya kapan saja<br>c. Agar bisa menyebarluaskan informasi", answer: "a" },
+                { question: "Apa yang harus dilakukan jika ada kendala dalam memenuhi janji?", options: "a. Mengabaikan masalah<br>b. Mengkomunikasikan kendala tersebut<br>c. Membuat janji baru", answer: "b" },
+                { question: "Mengapa menepati waktu dalam memenuhi janji penting?", options: "a. Agar tidak dianggap serius<br>b. Menunjukkan rasa hormat kepada orang lain<br>c. Agar bisa membuat janji lebih banyak", answer: "b" },
+                { question: "Apa yang menunjukkan rasa tanggung jawab seseorang?", options: "a. Menghormati komitmen yang dibuat<br>b. Sering terlambat dalam memenuhi janji<br>c. Membuat janji tanpa niat menepatinya", answer: "a" },
+            ],
+            materi3: [
+                { question: "Apa konsekuensi utama dari tidak memenuhi janji?", options: "a. Meningkatkan kepercayaan<br>b. Kehilangan kepercayaan<br>c. Meningkatkan hubungan sosial", answer: "b" },
+                { question: "Bagaimana hubungan seseorang dapat terpengaruh oleh janji yang tidak ditepati?", options: "a. Hubungan menjadi lebih erat<br>b. Hubungan bisa rusak<br>c. Tidak ada perubahan", answer: "b" },
+                { question: "Apa yang terjadi pada reputasi seseorang jika sering tidak memenuhi janji?", options: "a. Reputasi semakin baik<br>b. Reputasi menjadi buruk<br>c. Reputasi tidak terpengaruh", answer: "b" },
+                { question: "Apa yang sering dirasakan seseorang ketika tidak memenuhi janjinya?", options: "a. Kebanggaan<br>b. Rasa bersalah<br>c. Ketidakpedulian", answer: "b" },
+                { question: "Bagaimana dampak tidak memenuhi janji terhadap rasa percaya diri?", options: "a. Meningkatkan rasa percaya diri<br>b. Menurunkan rasa percaya diri<br>c. Tidak ada dampak", answer: "b" },
+            ],
+        };
+
+        let currentMaterial = '';
+        let currentQuestionIndex = 0;
+
+        function showMaterial(material) {
+            // Reset pertanyaan dan tampilan
+            currentMaterial = material;
+            currentQuestionIndex = 0;
+            document.getElementById('material').innerHTML = materials[material];
+            document.getElementById('quiz').style.display = 'block';
+            showQuestion();
+            document.getElementById('score').innerText = '';
+            document.getElementById('answer').value = '';
+        }
+
+        function showQuestion() {
+            const question = questions[currentMaterial][currentQuestionIndex];
+            document.getElementById('question').innerHTML = `${question.question}<br>${question.options}`;
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answer').value.toLowerCase();
+            const correctAnswer = questions[currentMaterial][currentQuestionIndex].answer;
+            const scoreElement = document.getElementById('score');
+            
+            if (userAnswer === correctAnswer) {
+                scoreElement.innerText = "Jawaban Anda Benar!";
+            } else {
+                scoreElement.innerText = "Jawaban Anda Salah. Jawaban yang benar adalah: " + correctAnswer;
+            }
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions[currentMaterial].length) {
+                showQuestion();
+            } else {
+                document.getElementById('quiz').style.display = 'none';
+            }
+        }
+
+        function goToHome() {
+            // Ganti URL dengan halaman login Anda
+            window.location.href = 'login.html'; // Ubah 'login.html' sesuai dengan halaman login Anda
+        }
+    </script>
+
+</body>
+</html>

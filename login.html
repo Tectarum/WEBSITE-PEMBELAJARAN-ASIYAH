@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            width: 100px; /* Sesuaikan ukuran foto */
+            border-radius: 50%; /* Membuat foto menjadi bulat */
+        }
+        .login-container {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+            position: relative; /* Untuk posisi loading */
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
+        /* Animasi Loading */
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none; /* Awalnya tidak ditampilkan */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>WEB PEMBELAJARAN ASIYAH</h1>
+        <img src="IMG_4122 copy.jpg" alt="Foto Asiyah"> <!-- Ganti dengan jalur foto Anda -->
+    </div>
+
+    <div class="login-container">
+        <h2>Halaman Login</h2>
+        <input type="text" id="username" placeholder="Nama Pengguna" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="login()">Login</button>
+        <div class="loader" id="loader"></div> <!-- Loader -->
+        <p class="error" id="error-message"></p>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            const loader = document.getElementById('loader');
+
+            // Tampilkan loader
+            loader.style.display = 'block';
+
+            setTimeout(() => {
+                // Simulasi proses login dengan timeout
+                if (username === 'asiyah' && password === '1234') {
+                    window.location.href = 'HTML.html'; // Ganti dengan nama file halaman materi Anda
+                } else {
+                    // Jika login gagal, sembunyikan loader dan tampilkan pesan kesalahan
+                    loader.style.display = 'none';
+                    errorMessage.innerText = 'Username atau password salah.';
+                }
+            }, 5500); // Waktu simulasi 1.5 detik
+        }
+    </script>
+
+</body>
+</html>
